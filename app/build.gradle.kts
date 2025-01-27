@@ -82,8 +82,8 @@ dependencies {
 
     val coil_version = "2.4.0"
 
-    implementation("io.coil-kt:coil-compose:$coil_version")
-    implementation("io.coil-kt:coil-okhttp:$coil_version")
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 
     val lifecycle_version = "2.6.2"
 
