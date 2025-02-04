@@ -11,11 +11,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.code_scanner_app"
+    namespace = "com.androidproject.code_scanner_app"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.code_scanner_app"
+        applicationId = "com.androidporject.code_scanner_app"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
