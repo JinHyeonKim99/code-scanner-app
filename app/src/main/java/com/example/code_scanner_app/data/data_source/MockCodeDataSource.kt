@@ -1,6 +1,5 @@
 package com.example.code_scanner_app.data.data_source
 
-import com.example.code_scanner_app.domain.data_source.CodeDataSource
 import com.example.code_scanner_app.domain.model.Code
 import kotlinx.serialization.json.Json
 import javax.inject.Inject

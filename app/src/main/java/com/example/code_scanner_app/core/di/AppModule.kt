@@ -4,8 +4,8 @@ import com.example.code_scanner_app.data.data_source.MockCodeDataSource
 import com.example.code_scanner_app.data.data_source.MockImageDataSource
 import com.example.code_scanner_app.data.repository.CodeRepositoryImpl
 import com.example.code_scanner_app.data.repository.ImageRepositoryImpl
-import com.example.code_scanner_app.domain.data_source.CodeDataSource
-import com.example.code_scanner_app.domain.data_source.ImageDataSource
+import com.example.code_scanner_app.data.data_source.CodeDataSource
+import com.example.code_scanner_app.data.data_source.ImageDataSource
 import com.example.code_scanner_app.domain.repository.CodeRepository
 import com.example.code_scanner_app.domain.repository.ImageRepository
 import dagger.Binds

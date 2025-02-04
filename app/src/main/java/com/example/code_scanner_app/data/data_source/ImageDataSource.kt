@@ -1,4 +1,4 @@
-package com.example.code_scanner_app.domain.data_source
+package com.example.code_scanner_app.data.data_source
 
 import com.example.code_scanner_app.domain.model.Image
 
