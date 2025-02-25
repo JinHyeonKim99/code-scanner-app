@@ -96,7 +96,7 @@ class CodeDataSourceImpl @Inject constructor(
 
 @Serializable
 data class OpenAIRequest(
-    val model: String = "gpt-4o",
+    val model: String,
     val messages: List<MessageRequest>,
 )
 

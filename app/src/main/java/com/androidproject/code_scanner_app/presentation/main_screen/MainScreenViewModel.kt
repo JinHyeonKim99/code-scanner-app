@@ -1,6 +1,5 @@
 package com.androidproject.code_scanner_app.presentation.main_screen
 
-import android.graphics.Bitmap
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,6 +21,13 @@ class MainScreenViewModel @Inject constructor(
     private val _state = MutableStateFlow(MainScreenState())
     val state = _state.asStateFlow()
 
+    fun onAction(action: MainScreenAction) {
+        when (action) {
+            is MainScreenAction.OnCameraButtonClick -> {}
+            is MainScreenAction.OnGalleryButtonClick -> {}
+        }
+    }
+
     init {
         fetchCode()
     }
@@ -34,12 +40,12 @@ class MainScreenViewModel @Inject constructor(
         }
     }
 
-    fun onCameraButtonClick(image: Bitmap) {
+    fun onCameraButtonClick(uri: Uri) {
         viewModelScope.launch {
 
             _state.update {
                 MainScreenState(
-//                    code = codeRepository.getCode(" 이 이미지에 어떤게 있는지 파이썬 기능을 사용하지 말고 알려줄래? 만약 프로그래밍 코드라면 코드만 알려줘", image),
+                    code = codeRepository.getCode(" 이 이미지에 어떤게 있는지 파이썬 기능을 사용하지 말고 알려줄래? 만약 프로그래밍 코드라면 코드만 알려줘", uri),
                     isAnswer = true
                 )
             }

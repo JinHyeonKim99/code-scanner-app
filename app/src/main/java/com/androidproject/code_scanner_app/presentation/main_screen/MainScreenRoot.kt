@@ -14,8 +14,10 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import java.io.File
 
 @Composable
 fun MainScreenRoot(
@@ -44,12 +46,17 @@ fun MainScreenRoot(
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    // 🔹 사진을 찍고 Bitmap을 직접 반환하는 런처
-    val cameraLauncher =
-        rememberLauncherForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap ->
-            if (bitmap != null) {
+    // 🔹 파일을 저장할 임시 URI 생성
+    val file = remember { File(context.cacheDir, "captured_photo.jpg") }
+    val uri = remember { FileProvider.getUriForFile(context, "${context.packageName}.provider", file) }
+
+    // 🔹 사진을 찍고 URI를 반환하는 런처
+    val cameraLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.TakePicture()
+    ) { success ->
+            if (success) {
                 Log.d("MainScreenRoot", "사진이 성공적으로 찍힘")
-                viewModel.onCameraButtonClick(bitmap)  // 뷰모델로 전달
+                viewModel.onCameraButtonClick(uri)  // 뷰모델로 전달
             } else {
                 Log.e("MainScreenRoot", "사진 촬영 실패")
             }
@@ -65,17 +72,22 @@ fun MainScreenRoot(
         } ?: Log.e("MainScreenRoot", "갤러리에서 사진 선택 실패")
     }
 
+    // 가로 세로 구분
     val configuration = LocalConfiguration.current
-
-    // 화면 방향에 따라 패딩 값 설정
-    val horizontalPadding = when (configuration.orientation) {
-        Configuration.ORIENTATION_LANDSCAPE -> 40.dp // 가로 모드일 때 패딩 증가
-        else -> 15.dp // 기본(세로 모드) 패딩
-    }
+    val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
     MainScreen(
         state = state,
-        horizontalPadding = horizontalPadding,
-        onButtonClick = { galleryLauncher.launch("image/*") }
+        isLandscape = isLandscape,
+        onAction = { action ->
+            when (action) {
+                is MainScreenAction.OnCameraButtonClick -> {
+                    cameraLauncher.launch(uri)
+                }
+                is MainScreenAction.OnGalleryButtonClick -> {
+                    galleryLauncher.launch("image/*")
+                }
+            }
+        },
     )
 }
