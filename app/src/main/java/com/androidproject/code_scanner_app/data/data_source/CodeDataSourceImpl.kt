@@ -1,6 +1,9 @@
 package com.androidproject.code_scanner_app.data.data_source
 
+import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.util.Base64
 import com.androidproject.code_scanner_app.BuildConfig
 import com.androidproject.code_scanner_app.domain.model.Code
@@ -19,7 +22,9 @@ import kotlinx.serialization.json.Json
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 
-class CodeDataSourceImpl @Inject constructor() : CodeDataSource {
+class CodeDataSourceImpl @Inject constructor(
+    private val context: Context,
+) : CodeDataSource {
     private val apiKey: String = BuildConfig.OPENAI_API_KEY
     private val client = HttpClient(CIO)
     private val json = Json {
@@ -29,10 +34,13 @@ class CodeDataSourceImpl @Inject constructor() : CodeDataSource {
         isLenient = true
     }
 
-
-    override suspend fun getCode(prompt: String, image: Bitmap): Code {
+    override suspend fun getCode(prompt: String, uri: Uri): Code {
         val outputStream = ByteArrayOutputStream()
-        image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)  // 압축률 100%로 설정
+        uriToBitmap(context, uri)?.compress(
+            Bitmap.CompressFormat.JPEG,
+            100,
+            outputStream
+        )  // 압축률 100%로 설정
         val byteArray = outputStream.toByteArray()
         val base64 = Base64.encodeToString(byteArray, Base64.DEFAULT)
 
@@ -43,7 +51,8 @@ class CodeDataSourceImpl @Inject constructor() : CodeDataSource {
                     role = "user",
                     content = listOf(
                         Content.Text(prompt),
-                        Content.Image(ImageUrl("data:image/jpeg;base64,$base64"))
+//                        Content.Image(ImageUrl("data:image/jpeg;base64,$base64"))
+                        Content.Image(ImageUrl("https://cdn.inflearn.com/public/files/posts/986a146c-9d95-45c3-bb95-d91327761358/%EB%A6%AC%EC%95%A1%ED%8A%B8%20%EC%A7%88%EB%AC%B8.JPG"))
                     )
                 )
             )
@@ -53,6 +62,7 @@ class CodeDataSourceImpl @Inject constructor() : CodeDataSource {
         val requestJson = json.encodeToString(requestData)
 
         println(requestJson)
+
 
         val response = client.post("https://api.openai.com/v1/chat/completions") {
             headers {
@@ -70,6 +80,17 @@ class CodeDataSourceImpl @Inject constructor() : CodeDataSource {
             "",
             (openAIResponse.choices?.firstOrNull()?.message?.content ?: "응답이 없습니다").toString()
         )
+    }
+
+    // 🔹 URI → Bitmap 변환 함수
+    private fun uriToBitmap(context: Context, uri: Uri): Bitmap? {
+        return try {
+            val inputStream = context.contentResolver.openInputStream(uri)
+            BitmapFactory.decodeStream(inputStream)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
     }
 }
 

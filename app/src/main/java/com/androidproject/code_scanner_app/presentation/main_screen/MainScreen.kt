@@ -2,6 +2,7 @@ package com.androidproject.code_scanner_app.presentation.main_screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
@@ -30,8 +31,10 @@ import com.androidproject.code_scanner_app.R
 fun MainScreen(
     modifier: Modifier = Modifier,
     state: MainScreenState = MainScreenState(),
+    horizontalPadding: Dp,
     onButtonClick: () -> Unit = {},
 ) {
+    println(horizontalPadding)
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -40,26 +43,27 @@ fun MainScreen(
         if (state.isAnswer) {
             Column(
                 modifier = Modifier
+                    .fillMaxSize()
                     .align(Alignment.Center)
-                    .padding(top = 50.dp),
+                    .systemBarsPadding(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "언어 : ${state.code.language}",
+                    text = "결과",
                     fontSize = 30.sp,
                     color = Color.LightGray,
                     modifier = Modifier
-                        .systemBarsPadding()
                 )
                 Text(
                     text = state.code.code,
                     fontSize = 20.sp,
-                    color = Color.LightGray,
+                    color = Color.White,
                     textAlign = TextAlign.Left,
                     modifier = Modifier
-                        .padding(horizontal = 15.dp)
-                        .padding(bottom = 50.dp)
+                        .padding(start = horizontalPadding, top = 30.dp, bottom = 50.dp)
+                        .horizontalScroll(
+                            state = rememberScrollState()
+                        )
                         .verticalScroll(
                             state = rememberScrollState()
                         ),
@@ -89,7 +93,6 @@ fun MainScreen(
 
                 Text(
                     modifier = Modifier
-                        .width(290.dp)
                         .padding(top = 30.dp),
                     text = "아이콘을 눌러 코드를 스캔하세요",
                     fontSize = 30.sp,
@@ -100,3 +103,4 @@ fun MainScreen(
         }
     }
 }
+
