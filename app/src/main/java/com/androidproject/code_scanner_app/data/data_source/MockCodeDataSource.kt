@@ -1,5 +1,6 @@
 package com.androidproject.code_scanner_app.data.data_source
 
+import android.graphics.Bitmap
 import com.androidproject.code_scanner_app.domain.model.Code
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
@@ -12,7 +13,7 @@ class MockCodeDataSource @Inject constructor() : CodeDataSource {
     }
 """.trimIndent()
 
-    override suspend fun getCode(): Code {
+    override suspend fun getCode(prompt: String, image: Bitmap): Code {
         return Json.decodeFromString<Code>(json)
     }
 }

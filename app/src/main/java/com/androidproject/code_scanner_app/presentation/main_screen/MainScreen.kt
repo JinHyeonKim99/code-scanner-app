@@ -2,7 +2,6 @@ package com.androidproject.code_scanner_app.presentation.main_screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -59,13 +58,11 @@ fun MainScreen(
                     color = Color.LightGray,
                     textAlign = TextAlign.Left,
                     modifier = Modifier
+                        .padding(horizontal = 15.dp)
                         .padding(bottom = 50.dp)
-                        .horizontalScroll(
-                            state = rememberScrollState()
-                        )
                         .verticalScroll(
                             state = rememberScrollState()
-                        )
+                        ),
                 )
             }
         } else {

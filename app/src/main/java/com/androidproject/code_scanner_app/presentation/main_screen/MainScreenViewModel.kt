@@ -1,5 +1,6 @@
 package com.androidproject.code_scanner_app.presentation.main_screen
 
+import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.androidproject.code_scanner_app.domain.repository.CodeRepository
@@ -10,6 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(
@@ -31,11 +33,12 @@ class MainScreenViewModel @Inject constructor(
         }
     }
 
-    fun onButtonClick() {
+    fun onButtonClick(image: Bitmap) {
         viewModelScope.launch {
+
             _state.update {
                 MainScreenState(
-                    code = codeRepository.getCode(),
+                    code = codeRepository.getCode(" 이 이미지에 어떤게 있는지 파이썬 기능을 사용하지 말고 알려줄래?", image),
                     isAnswer = true
                 )
             }
