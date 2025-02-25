@@ -20,15 +20,11 @@ abstract class AppModule {
 
     @Singleton
     @Binds
-    abstract fun bindCodeDataSource(
-        codeDataSource: CodeDataSourceImpl,
-    ): CodeDataSource
+    abstract fun bindCodeDataSource(codeDataSource: CodeDataSourceImpl): CodeDataSource
 
     @Singleton
     @Binds
-    abstract fun bindImageDataSource(
-        imageDataSource: MockImageDataSource,
-    ): ImageDataSource
+    abstract fun bindImageDataSource(imageDataSource: MockImageDataSource): ImageDataSource
 
     @Singleton
     @Binds
