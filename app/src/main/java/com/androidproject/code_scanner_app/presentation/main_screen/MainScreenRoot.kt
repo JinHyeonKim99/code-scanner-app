@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Context.*
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.net.Uri
@@ -21,6 +22,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.FileProvider
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -33,8 +35,8 @@ fun MainScreenRoot(
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
-    //    val activity = context as? Activity
-    // 🔹 권한 요청을 위한 런처
+
+    // 권한 요청을 위한 런처
     val cameraPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()
     ) { isGranted ->
@@ -45,7 +47,7 @@ fun MainScreenRoot(
         }
     }
 
-    // 🔹 카메라 권한 확인
+    // 카메라 권한 확인
     val isCameraPermissionGranted = remember {
         ContextCompat.checkSelfPermission(
             context,
@@ -53,11 +55,11 @@ fun MainScreenRoot(
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    // 🔹 파일을 저장할 임시 URI 생성
+    // 파일을 저장할 임시 URI 생성
     val file = remember { File(context.cacheDir, "captured_photo.jpg") }
     val uri = remember { FileProvider.getUriForFile(context, "${context.packageName}.provider", file) }
 
-    // 🔹 사진을 찍고 URI를 반환하는 런처
+    // 사진을 찍고 URI를 반환하는 런처
     val cameraLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.TakePicture()
     ) { success ->
@@ -69,7 +71,7 @@ fun MainScreenRoot(
             }
         }
 
-    // 🔹 갤러리에서 사진을 선택하는 런처
+    // 갤러리에서 사진을 선택하는 런처
     val galleryLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
@@ -78,6 +80,14 @@ fun MainScreenRoot(
             viewModel.onGalleryButtonClick(uri) // Uri를 그대로 뷰모델로 전달
         } ?: Log.e("MainScreenRoot", "갤러리에서 사진 선택 실패")
     }
+
+    // 공유 (Android Sharesheet 사용)
+    val sendIntent: Intent = Intent().apply {
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_TEXT, "```${state.code.code.split("```")[1]}```")
+        type = "text/plain"
+    }
+    val shareIntent = Intent.createChooser(sendIntent, "코드 공유")
 
     // 가로 세로 구분
     val configuration = LocalConfiguration.current
@@ -97,8 +107,15 @@ fun MainScreenRoot(
                     galleryLauncher.launch("image/*")
                 }
                 is MainScreenAction.OnCopyButtonClick -> {
-                    clipboardManager.setText(AnnotatedString(state.code.code))
+                    clipboardManager.setText(AnnotatedString("```${state.code.code.split("```")[1]}```"))
                     Toast.makeText(context, "클립보드에 복사됨", Toast.LENGTH_SHORT).show()
+                }
+                is MainScreenAction.OnShareButtonClick -> {
+                    context.startActivity(shareIntent)
+                }
+
+                MainScreenAction.OnBackButtonClick -> {
+                    viewModel.onAction(MainScreenAction.OnBackButtonClick)
                 }
             }
         },

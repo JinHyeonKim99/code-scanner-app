@@ -1,11 +1,12 @@
 package com.androidproject.code_scanner_app.core.di
 
-import com.androidproject.code_scanner_app.data.data_source.MockImageDataSource
+import com.androidproject.code_scanner_app.data.data_source.MockImageDataSourceImpl
 import com.androidproject.code_scanner_app.data.repository.CodeRepositoryImpl
 import com.androidproject.code_scanner_app.data.repository.ImageRepositoryImpl
 import com.androidproject.code_scanner_app.data.data_source.CodeDataSource
 import com.androidproject.code_scanner_app.data.data_source.CodeDataSourceImpl
 import com.androidproject.code_scanner_app.data.data_source.ImageDataSource
+import com.androidproject.code_scanner_app.data.data_source.MockCodeDataSourceImpl
 import com.androidproject.code_scanner_app.domain.repository.CodeRepository
 import com.androidproject.code_scanner_app.domain.repository.ImageRepository
 import dagger.Binds
@@ -18,13 +19,17 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 abstract class AppModule {
 
-    @Singleton
-    @Binds
-    abstract fun bindCodeDataSource(codeDataSource: CodeDataSourceImpl): CodeDataSource
+//    @Singleton
+//    @Binds
+//    abstract fun bindCodeDataSource(codeDataSource: CodeDataSourceImpl): CodeDataSource
 
     @Singleton
     @Binds
-    abstract fun bindImageDataSource(imageDataSource: MockImageDataSource): ImageDataSource
+    abstract fun bindMockCodeDataSource(codeDataSource: MockCodeDataSourceImpl): CodeDataSource
+
+    @Singleton
+    @Binds
+    abstract fun bindImageDataSource(imageDataSource: MockImageDataSourceImpl): ImageDataSource
 
     @Singleton
     @Binds
