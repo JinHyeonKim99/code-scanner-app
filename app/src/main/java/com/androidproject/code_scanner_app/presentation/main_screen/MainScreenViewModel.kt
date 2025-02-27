@@ -26,6 +26,10 @@ class MainScreenViewModel @Inject constructor(
             is MainScreenAction.OnCameraButtonClick -> {}
             is MainScreenAction.OnGalleryButtonClick -> {}
             is MainScreenAction.OnCopyButtonClick -> {}
+            is MainScreenAction.OnShareButtonClick -> {}
+            MainScreenAction.OnBackButtonClick -> {
+                onBackButtonClick()
+            }
         }
     }
 
@@ -43,11 +47,17 @@ class MainScreenViewModel @Inject constructor(
 
     fun onCameraButtonClick(uri: Uri) {
         viewModelScope.launch {
+            _state.update { mainScreenState ->
+                mainScreenState.copy(
+                    isAnswer = true,
+                    isLoading = true
+                )
+            }
 
-            _state.update {
-                MainScreenState(
+            _state.update { mainScreenState ->
+                mainScreenState.copy(
                     code = codeRepository.getCode(" 이 이미지에 어떤게 있는지 파이썬 기능을 사용하지 말고 알려줄래? 만약 프로그래밍 코드라면 코드만 알려줘", uri),
-                    isAnswer = true
+//                    isLoading = false
                 )
             }
         }
@@ -55,11 +65,28 @@ class MainScreenViewModel @Inject constructor(
 
     fun onGalleryButtonClick(uri: Uri) {
         viewModelScope.launch {
+            _state.update { mainScreenState ->
+                mainScreenState.copy(
+                    isAnswer = true,
+                    isLoading = true
+                )
+            }
 
-            _state.update {
-                MainScreenState(
+            _state.update { mainScreenState ->
+                mainScreenState.copy(
                     code = codeRepository.getCode(" 이 이미지에 어떤게 있는지 파이썬 기능을 사용하지 말고 알려줄래? 만약 프로그래밍 코드라면 코드만 알려줘", uri),
-                    isAnswer = true
+//                    isLoading = false
+                )
+            }
+        }
+    }
+
+    private fun onBackButtonClick() {
+        viewModelScope.launch {
+
+            _state.update { mainScreenState ->
+                mainScreenState.copy(
+                    isAnswer = false
                 )
             }
         }

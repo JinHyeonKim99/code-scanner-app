@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -33,7 +34,17 @@ fun ResultScreen(
     onAction: (MainScreenAction) -> Unit,
 ) {
     if (state.isLoading) {
-        LoadingAnimation(isLandscape = isLandscape)
+        Column(
+            modifier = modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            Spacer(modifier = Modifier)
+
+            LoadingAnimation(isLandscape = isLandscape)
+
+            Spacer(modifier = Modifier)
+        }
     } else {
         Column(
             modifier = if (isLandscape) {
