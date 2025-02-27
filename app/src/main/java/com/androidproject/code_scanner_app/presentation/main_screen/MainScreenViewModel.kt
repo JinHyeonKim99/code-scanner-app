@@ -25,6 +25,7 @@ class MainScreenViewModel @Inject constructor(
         when (action) {
             is MainScreenAction.OnCameraButtonClick -> {}
             is MainScreenAction.OnGalleryButtonClick -> {}
+            is MainScreenAction.OnCopyButtonClick -> {}
         }
     }
 

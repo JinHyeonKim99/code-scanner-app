@@ -1,19 +1,26 @@
 package com.androidproject.code_scanner_app.presentation.main_screen
 
 import android.Manifest
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Context.*
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.net.Uri
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.FileProvider
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -75,6 +82,8 @@ fun MainScreenRoot(
     // 가로 세로 구분
     val configuration = LocalConfiguration.current
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+    // 클립보드 사용
+    val clipboardManager = LocalClipboardManager.current
 
     MainScreen(
         state = state,
@@ -86,6 +95,10 @@ fun MainScreenRoot(
                 }
                 is MainScreenAction.OnGalleryButtonClick -> {
                     galleryLauncher.launch("image/*")
+                }
+                is MainScreenAction.OnCopyButtonClick -> {
+                    clipboardManager.setText(AnnotatedString(state.code.code))
+                    Toast.makeText(context, "클립보드에 복사됨", Toast.LENGTH_SHORT).show()
                 }
             }
         },

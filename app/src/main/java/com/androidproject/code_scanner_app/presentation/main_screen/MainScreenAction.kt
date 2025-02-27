@@ -5,4 +5,5 @@ import android.net.Uri
 sealed interface MainScreenAction {
     data object OnCameraButtonClick : MainScreenAction
     data object OnGalleryButtonClick : MainScreenAction
+    data object OnCopyButtonClick : MainScreenAction
 }
