@@ -1,12 +1,12 @@
 package com.androidproject.code_scanner_app.core.di
 
-import com.androidproject.code_scanner_app.data.data_source.MockImageDataSourceImpl
-import com.androidproject.code_scanner_app.data.repository.CodeRepositoryImpl
-import com.androidproject.code_scanner_app.data.repository.ImageRepositoryImpl
-import com.androidproject.code_scanner_app.data.data_source.CodeDataSource
-import com.androidproject.code_scanner_app.data.data_source.CodeDataSourceImpl
-import com.androidproject.code_scanner_app.data.data_source.ImageDataSource
-import com.androidproject.code_scanner_app.data.data_source.MockCodeDataSourceImpl
+import com.androidproject.code_scanner_app.data.reomote.data_source.MockImageDataSourceImpl
+import com.androidproject.code_scanner_app.data.reomote.repository.CodeRepositoryImpl
+import com.androidproject.code_scanner_app.data.reomote.repository.ImageRepositoryImpl
+import com.androidproject.code_scanner_app.data.reomote.data_source.CodeDataSource
+import com.androidproject.code_scanner_app.data.reomote.data_source.CodeDataSourceImpl
+import com.androidproject.code_scanner_app.data.reomote.data_source.ImageDataSource
+import com.androidproject.code_scanner_app.data.reomote.data_source.MockCodeDataSourceImpl
 import com.androidproject.code_scanner_app.domain.repository.CodeRepository
 import com.androidproject.code_scanner_app.domain.repository.ImageRepository
 import dagger.Binds

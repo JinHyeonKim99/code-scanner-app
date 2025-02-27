@@ -59,7 +59,7 @@ fun ResultScreen(
             verticalArrangement = Arrangement.spacedBy(13.dp)
         ) {
             Text(
-                text = "결과",
+                text = "추출한 코드 스니펫",
                 fontSize = 27.sp,
                 color = Color.White,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -86,7 +86,7 @@ fun ResultScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = if (isLandscape) 300.dp else 15.dp),
+                    .padding(horizontal = if (isLandscape) 300.dp else 35.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
 
             ) {
