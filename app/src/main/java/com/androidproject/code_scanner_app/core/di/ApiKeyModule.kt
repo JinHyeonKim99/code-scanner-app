@@ -14,6 +14,6 @@ object ApiKeyModule {
     @Provides
     @Singleton
     fun provideApiKey(): String {
-        return BuildConfig.OPENAI_API_KEY // 🔥 BuildConfig에서 API 키 제공
+        return BuildConfig.OPENAI_API_KEY // BuildConfig에서 API 키 제공
     }
 }

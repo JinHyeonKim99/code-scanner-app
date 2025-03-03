@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Code(
-    val language: String,
+    val id: Int = 0,
     val code: String,
 )

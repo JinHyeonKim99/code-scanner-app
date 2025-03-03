@@ -9,13 +9,13 @@ import javax.inject.Inject
 class MockCodeDataSourceImpl @Inject constructor() : CodeDataSource {
     private val json = """
     {
-        "language" : "kotlin",
+        "id" : "0",
         "code" : "```kotlin\nfun main() {\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n\n    println(\"Hello World!\")\n}\n```"
     }
 """.trimIndent()
 
     override suspend fun getCode(prompt: String, uri: Uri): Code {
-        delay(4000)
+        delay(1000)
         return Json.decodeFromString<Code>(json)
     }
 }

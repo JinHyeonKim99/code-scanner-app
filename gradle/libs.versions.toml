@@ -11,6 +11,7 @@ espressoCore = "3.6.1"
 kotlinxCoroutinesCore = "1.10.1"
 kotlinxCoroutinesTest = "1.10.1"
 kotlinxSerializationJson = "1.8.0"
+kotlinxSerializationJsonVersion = "1.7.3"
 ktorClientCio = "3.0.3"
 ktorClientCore = "3.0.3"
 ktorClientMock = "3.0.3"
@@ -51,6 +52,7 @@ junit-junit = { group = "junit", name = "junit", version.ref = "junitJunit" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+kotlinx-serialization-json-v173 = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJsonVersion" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorClientCio" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
 ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktorClientMock" }

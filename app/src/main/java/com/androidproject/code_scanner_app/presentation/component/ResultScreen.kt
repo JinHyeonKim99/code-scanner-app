@@ -90,7 +90,6 @@ fun ResultScreen(
                 horizontalArrangement = Arrangement.SpaceBetween
 
             ) {
-                // 복사 버튼을 화면 중앙에 배치하기 위해 공유 버튼과 크기가 같은 투명 텍스트 배치
                 Text(
                     text = "뒤로",
                     fontSize = 23.sp,

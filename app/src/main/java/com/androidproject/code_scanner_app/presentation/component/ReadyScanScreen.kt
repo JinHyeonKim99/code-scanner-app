@@ -3,10 +3,13 @@ package com.androidproject.code_scanner_app.presentation.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -34,7 +37,7 @@ fun ReadyScanScreen(
         Column(
             modifier = modifier
                 .padding(horizontal = 60.dp)
-                .padding(top = 50.dp),
+                .padding(top = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
@@ -80,6 +83,23 @@ fun ReadyScanScreen(
                 fontSize = 30.sp,
                 textAlign = TextAlign.Center,
                 color = Color.LightGray
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Text(
+                modifier = Modifier
+                    .background(
+                        color = Color.Gray,
+                        shape = RoundedCornerShape(5.dp)
+                    )
+                    .clickable {
+                        onAction(MainScreenAction.OnHistoryButtonClick)
+                    },
+                text = "이전 코드로",
+                fontSize = 20.sp,
+                textAlign = TextAlign.Center,
+                color = Color.White
             )
         }
     } else {
@@ -131,7 +151,24 @@ fun ReadyScanScreen(
                 text = "촬영 아이콘을 눌러 코드를 스캔하거나\n갤러리에서 사진을 선택해주세요",
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center,
-                color = Color.LightGray
+                color = Color.White
+            )
+
+            Spacer(modifier = Modifier.height(60.dp))
+
+            Text(
+                modifier = Modifier
+                    .background(
+                        color = Color.Gray,
+                        shape = RoundedCornerShape(5.dp)
+                    )
+                    .clickable {
+                        onAction(MainScreenAction.OnHistoryButtonClick)
+                    },
+                text = "이전 코드로",
+                fontSize = 20.sp,
+                textAlign = TextAlign.Center,
+                color = Color.White
             )
         }
     }

@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.androidproject.code_scanner_app.presentation.component.CodeHistoryScreen
 import com.androidproject.code_scanner_app.presentation.component.ReadyScanScreen
 import com.androidproject.code_scanner_app.presentation.component.ResultScreen
 
@@ -30,11 +31,21 @@ fun MainScreen(
                 onAction = onAction
             )
         } else {
-            ReadyScanScreen(
-                modifier = Modifier.align(Alignment.Center),
-                isLandscape = isLandscape,
-                onAction = onAction
-            )
+            if (!state.isHistory) {
+                ReadyScanScreen(
+                    modifier = Modifier.align(Alignment.Center),
+                    isLandscape = isLandscape,
+                    onAction = onAction
+                )
+            } else {
+                CodeHistoryScreen(
+                    modifier = Modifier.align(Alignment.Center),
+                    state = state,
+                    isLandscape = isLandscape,
+                    onAction = onAction,
+                )
+            }
+
         }
     }
 }

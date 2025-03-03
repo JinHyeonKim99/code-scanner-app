@@ -4,8 +4,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-
     kotlin("plugin.serialization") version "2.1.0"
+
+    id("com.google.devtools.ksp")
 
     // Hilt
     id("kotlin-kapt")
@@ -83,11 +84,11 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.1")
-    implementation("org.slf4j:slf4j-simple:2.0.9")
-    implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
+    implementation(libs.kotlinx.serialization.json.v173)
+    implementation(libs.kotlinx.coroutines.core)
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    implementation(libs.slf4j.simple)
 
     val ktor_version = "3.0.3"
     implementation("io.ktor:ktor-client-core:$ktor_version")
@@ -99,8 +100,7 @@ dependencies {
     val slf4j = "2.0.9"
     implementation("org.slf4j:slf4j-simple:$slf4j")
 
-    val coil_version = "2.4.0"
-
+    // coil
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
 
@@ -117,13 +117,6 @@ dependencies {
 
     implementation("androidx.compose.material:material:$material_version")
 
-    // Koin
-    val koin_version = "4.0.1"
-    implementation("io.insert-koin:koin-core:$koin_version")
-    implementation("io.insert-koin:koin-android:$koin_version")
-    implementation("io.insert-koin:koin-compose-viewmodel:$koin_version")
-    implementation("io.insert-koin:koin-compose-viewmodel-navigation:$koin_version")
-
     // Hilt
     val hilt_version = "2.51.1"
     implementation("com.google.dagger:hilt-android:$hilt_version")
@@ -136,6 +129,16 @@ dependencies {
     implementation("androidx.camera:camera-camera2:1.3.0")
     implementation("androidx.camera:camera-lifecycle:1.3.0")
     implementation("androidx.camera:camera-view:1.3.0")
+
+    // Room
+    val room_version = "2.6.1"
+    implementation("androidx.room:room-runtime:$room_version")
+
+    // If this project uses any Kotlin source, use Kotlin Symbol Processing (KSP)
+    // See Add the KSP plugin to your project
+    ksp("androidx.room:room-compiler:$room_version")
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:$room_version")
 }
 
 kapt {

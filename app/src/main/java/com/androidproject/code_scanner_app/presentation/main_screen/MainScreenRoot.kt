@@ -21,8 +21,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.FileProvider
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -57,19 +55,20 @@ fun MainScreenRoot(
 
     // 파일을 저장할 임시 URI 생성
     val file = remember { File(context.cacheDir, "captured_photo.jpg") }
-    val uri = remember { FileProvider.getUriForFile(context, "${context.packageName}.provider", file) }
+    val uri =
+        remember { FileProvider.getUriForFile(context, "${context.packageName}.provider", file) }
 
     // 사진을 찍고 URI를 반환하는 런처
     val cameraLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.TakePicture()
     ) { success ->
-            if (success) {
-                Log.d("MainScreenRoot", "사진이 성공적으로 찍힘")
-                viewModel.onCameraButtonClick(uri)  // 뷰모델로 전달
-            } else {
-                Log.e("MainScreenRoot", "사진 촬영 실패")
-            }
+        if (success) {
+            Log.d("MainScreenRoot", "사진이 성공적으로 찍힘")
+            viewModel.onCameraButtonClick(uri)  // 뷰모델로 전달
+        } else {
+            Log.e("MainScreenRoot", "사진 촬영 실패")
         }
+    }
 
     // 갤러리에서 사진을 선택하는 런처
     val galleryLauncher = rememberLauncherForActivityResult(
@@ -103,19 +102,37 @@ fun MainScreenRoot(
                 is MainScreenAction.OnCameraButtonClick -> {
                     cameraLauncher.launch(uri)
                 }
+
                 is MainScreenAction.OnGalleryButtonClick -> {
                     galleryLauncher.launch("image/*")
                 }
+
                 is MainScreenAction.OnCopyButtonClick -> {
                     clipboardManager.setText(AnnotatedString("```${state.code.code.split("```")[1]}```"))
                     Toast.makeText(context, "클립보드에 복사됨", Toast.LENGTH_SHORT).show()
                 }
+
                 is MainScreenAction.OnShareButtonClick -> {
                     context.startActivity(shareIntent)
                 }
 
-                MainScreenAction.OnBackButtonClick -> {
+                is MainScreenAction.OnBackButtonClick -> {
                     viewModel.onAction(MainScreenAction.OnBackButtonClick)
+                }
+
+                is MainScreenAction.OnHistoryButtonClick -> {
+                    viewModel.onAction(MainScreenAction.OnHistoryButtonClick)
+                }
+
+                is MainScreenAction.OnDeleteButtonClick -> {
+                    viewModel.onAction(MainScreenAction.OnDeleteButtonClick(action.id))
+                }
+
+                is MainScreenAction.OnCodeButtonCLick -> {
+                    viewModel.onAction(MainScreenAction.OnCodeButtonCLick(action.id))
+                }
+                MainScreenAction.OnDeleteAllButton -> {
+                    viewModel.onAction(MainScreenAction.OnDeleteAllButton)
                 }
             }
         },

@@ -1,6 +1,5 @@
 package com.androidproject.code_scanner_app.domain.repository
 
-import android.graphics.Bitmap
 import android.net.Uri
 import com.androidproject.code_scanner_app.domain.model.Code
 

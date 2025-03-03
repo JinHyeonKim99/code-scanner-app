@@ -51,8 +51,7 @@ class CodeDataSourceImpl @Inject constructor(
                     role = "user",
                     content = listOf(
                         Content.Text(prompt),
-//                        Content.Image(ImageUrl("data:image/jpeg;base64,$base64"))
-                        Content.Image(ImageUrl("https://cdn.inflearn.com/public/files/posts/986a146c-9d95-45c3-bb95-d91327761358/%EB%A6%AC%EC%95%A1%ED%8A%B8%20%EC%A7%88%EB%AC%B8.JPG"))
+                        Content.Image(ImageUrl("data:image/jpeg;base64,$base64"))
                     )
                 )
             )
@@ -77,8 +76,7 @@ class CodeDataSourceImpl @Inject constructor(
         val openAIResponse = json.decodeFromString<OpenAIResponse>(jsonBody)
 
         return Code(
-            "",
-            (openAIResponse.choices?.firstOrNull()?.message?.content ?: "응답이 없습니다").toString()
+            code = (openAIResponse.choices?.firstOrNull()?.message?.content ?: "응답이 없습니다").toString()
         )
     }
 
