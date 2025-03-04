@@ -78,7 +78,7 @@ class MainScreenViewModel @Inject constructor(
             }
 
             val code = codeRepository.getCode(
-                " 이 이미지에 어떤게 있는지 파이썬 기능을 사용하지 말고 알려줄래? 만약 프로그래밍 코드라면 코드만 알려줘",
+                "이 이미지가 프로그래밍 코드라면 코드만 마크다운으로 알려줘. 프로그래밍 코드가 아니라면 '```프로그래밍 코드가 아닙니다```'라고만 마크다운을 적용해서 알려줘",
                 uri
             )
 
@@ -104,7 +104,7 @@ class MainScreenViewModel @Inject constructor(
             }
 
             val code = codeRepository.getCode(
-                " 이 이미지가 프로그래밍 코드라면 코드만 마크다운으로 알려줘",
+                "이 이미지가 프로그래밍 코드라면 코드만 마크다운으로 알려줘. 프로그래밍 코드가 아니라면 '```프로그래밍 코드가 아닙니다```'라고만 마크다운을 적용해서 알려줘",
                 uri
             )
 
