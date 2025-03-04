@@ -124,12 +124,6 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation:1.2.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
-    // Camera
-    implementation("androidx.camera:camera-core:1.3.0")
-    implementation("androidx.camera:camera-camera2:1.3.0")
-    implementation("androidx.camera:camera-lifecycle:1.3.0")
-    implementation("androidx.camera:camera-view:1.3.0")
-
     // Room
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
