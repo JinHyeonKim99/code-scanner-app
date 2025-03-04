@@ -13,9 +13,3 @@ fun Code.toCodeEntity() = CodeEntity(
     id = id,
     code = code,
 )
-
-//fun listCodeEntityToCode(list: List<CodeEntity?>?): List<Code> {
-//    val nullableList = list ?: emptyList()
-//    val nonNullableList = nullableList.map { it ?: CodeEntity() }
-//    return nonNullableList.map { it.toCode() }
-//}

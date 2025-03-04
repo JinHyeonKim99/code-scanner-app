@@ -1,7 +1,5 @@
 package com.androidproject.code_scanner_app.core.di
 
-import com.androidproject.code_scanner_app.data.local.AppDatabase
-import com.androidproject.code_scanner_app.data.local.dao.CodeDao
 import com.androidproject.code_scanner_app.data.local.repository.CodeHistoryRepositoryImpl
 import com.androidproject.code_scanner_app.data.reomote.data_source.MockImageDataSourceImpl
 import com.androidproject.code_scanner_app.data.reomote.repository.CodeRepositoryImpl
